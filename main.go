@@ -6,6 +6,7 @@ import (
 	"github.com/gin-contrib/cache"
 	"github.com/gin-contrib/cache/persistence"
 	"github.com/gin-gonic/gin"
+	"hero-backend/legacy"
 	"log"
 	"net/http"
 	"regexp"
@@ -25,6 +26,8 @@ func main() {
 	{
 		v1.GET("/csb_profile", cache.CachePage(store, time.Minute, GetCsbProfile))
 	}
+	r.GET("/id", cache.CachePage(store, time.Hour*24, legacy.GetId))
+	r.GET("/awards", cache.CachePage(store, time.Minute, legacy.GetAwards))
 	if err := r.Run(); err != nil {
 		log.Println(err)
 	}
