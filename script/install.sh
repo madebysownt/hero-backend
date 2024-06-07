@@ -1,7 +1,7 @@
 #!/bin/bash
 
-go get .
-go build .
+go get ..
+go build ..
 
 cat <<EOF >>hero-backend.service
 [Unit]
