@@ -59,14 +59,14 @@ func GetCsbProfile(c *gin.Context) {
 		earned := selection.Find(".ql-body-medium").First()
 
 		// Regular expression to match the desired date format, then find all matches within the text
-		re := regexp.MustCompile(`[A-Z][a-z]{2}\s*\d{1,2}, \d{4}`)
+		re := regexp.MustCompile(`[A-Z][a-z]{2}\s*\d{1,2}, \d{4} ([A-Z]{3})`)
 		matches := re.FindAllString(strings.TrimSpace(earned.Text()), -1)
 
 		hs = append(hs, gin.H{
 			"link":   link,
 			"image":  image,
-			"detail": strings.TrimSpace(title.Text()),
-			"earned": matches[0],
+			"name":   strings.TrimSpace(title.Text()),
+			"earned": strings.ReplaceAll(matches[0], "  ", " "),
 		})
 	})
 
